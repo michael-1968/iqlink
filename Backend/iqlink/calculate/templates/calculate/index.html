@@ -1,0 +1,57 @@
+
+
+<!DOCTYPE html> <!-- myapp/templates/myapp/index.html -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter</title>
+</head>
+<body>
+    <h1>Counter</h1>
+    <div id="output">default text</div>
+
+    <script>
+        async function fetchCounter() {
+            console.log("before try")
+            try {
+                const response = await fetch("http://127.0.0.1:8000/counter/get/", {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')  // Ensure CSRF token is included if needed
+                    }
+                });
+                console.log("before await response.json")
+                const result = await response.json();
+                console.log("result: ", result)
+                document.getElementById("output").innerHTML = `Counter: <strong>${result.counter}</strong>`;
+            } catch (error) {
+                console.log("response: ", error);
+                console.error("Error:", error);
+                document.getElementById("output").innerHTML = `ctc-Error Message (index.html): <strong>${error}</strong>`;
+            }
+        }
+
+        // Function to get the CSRF token from cookies
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        // Fetch counter value every second
+        setInterval(fetchCounter, 1000);
+    </script>
+</body>
+</html>
+

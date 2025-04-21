@@ -1,0 +1,6 @@
+Commit History
+
+v1.0.0
+Working version without version refletion from the Git-Tag. 
+Note that the test "test_fomProgress" fails as the fomProgress array is overwritten. 
+
