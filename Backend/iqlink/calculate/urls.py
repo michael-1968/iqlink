@@ -3,7 +3,7 @@
 from django.urls import path
 from .views import show_counter, index, update_counter, receiveCalculationParameter
 from .views import sendInfo, sendCalculationProgress, sendCalcluationText, setupReceive
-from .views import startOrPauseCalculation, setupSave, setupLoad, setupLoadButtonnames, setupSaveButtonnames
+from .views import startOrPauseCalculation, setupSave, setupLoad, setupLoadButtonnames, setupSaveButtonnames, version
 
 urlpatterns = [
 
@@ -20,5 +20,6 @@ urlpatterns = [
     path('setup/load/', setupLoad, name='setupLoad'),  
     path('setup/load/buttonnames/', setupLoadButtonnames, name='setupLoadButtonnames'),  
     path('setup/save/buttonnames/', setupSaveButtonnames, name='setupSaveButtonnames'),  
+    path('version/', version, name='setupSaveButtonnames'),  
 
 ]

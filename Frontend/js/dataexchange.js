@@ -59,5 +59,50 @@ function filename(pfadname) {
     return filename;
 }
 
-export  {htmlGET, htmlPOST, getCookie, filename};
+function get_version() {
+    const url = `http://localhost:8000/version/`;
+    htmlGET(url, "")
+    .then(result => {
+        if (result !== null) {
+            console.log("Version: ", result);
+            console.log("Version: ", result.version);
+//            version = ', Version: ' + result.version
+            return ', Version: ' + result.version;
+        } else {
+            console.log("Version: result is null");
+            return '';
+        }
+    });
+}
+
+var version = "";
+
+async function fetchVersion() {
+    try {
+        // Make a GET request to the backend endpoint
+        const response = await fetch('http://localhost:8000/version/');
+        
+        // Check if the response is OK
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        // Parse the JSON response
+        const data = await response.json();
+
+        // Define a local variable with the version content
+        version = data.version;
+
+        console.log(`Version retrieved: ${version}`);
+        return version; // Return the version if needed elsewhere
+    } catch (error) {
+        console.error('Error fetching version:', error);
+        return null; // Return null if there's an error
+    }
+}
+
+fetchVersion()
+
+
+export  {htmlGET, htmlPOST, getCookie, filename, fetchVersion, version};
 

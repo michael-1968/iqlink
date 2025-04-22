@@ -1,5 +1,5 @@
 
-import { htmlGET, htmlPOST, filename }  from "./dataexchange.js";
+import { htmlGET, htmlPOST, filename, fetchVersion }  from "./dataexchange.js";
 import Figure from './figure.js';
 import figures from './figures.js';
 import localStorageHandler from './localStorageHandler.js'
@@ -161,4 +161,11 @@ function removeMessage() {
     document.getElementById('Message').innerHTML = '';
     document.getElementById('Message').style.visibility = 'hidden';
 }
+
+fetchVersion().then(version => {
+    document.getElementById('field-label').innerHTML = '20.12.2024, Michael Lanker, ' + version;
+}).catch(error => {
+    document.getElementById('field-label').innerHTML = '20.12.2024, Michael Lanker';
+    console.error("Error fetching version:", error);
+});
 

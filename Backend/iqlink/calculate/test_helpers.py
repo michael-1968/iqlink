@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .helpers import checkTypeOccupation, shiftAngle
+from .helpers import checkTypeOccupation, shiftAngle, get_git_version
 
 class HelperTests(TestCase):
 
@@ -39,3 +39,7 @@ class HelperTests(TestCase):
         # self.assertEqual(shiftAngle(3, 2, 180), {'x': 2, 'y': 2})
         # self.assertEqual(shiftAngle(4, 0, 240), {'x': 3, 'y': 1})
         # self.assertEqual(shiftAngle(4, 0, 300), {'x': 4, 'y': 1})
+
+    def test_get_git_version(self):
+        self.assertRegex(get_git_version(), "^v\d+\.\d+\.\d+$")
+

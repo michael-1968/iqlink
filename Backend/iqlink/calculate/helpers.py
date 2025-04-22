@@ -1,5 +1,6 @@
 
 import random
+import subprocess
 from .parameter import InitialListOfFigures
                       # ['Rot', 'Gelb', 'Violet', 'Magenta', 'Hellblau', 'Gruen', 'Dunkelgruen', 'Orange', 'Bordeaux', 'Dunkelviolet', 'Blau', 'Hellgruen']
 OriginalListOfFigures = ["Rot", "Blau", "Bordeaux", "Orange", "Dunkelviolet", "Dunkelgruen", "Gruen", "Hellgruen", "Violet", "Gelb", "Hellblau", "Magenta"]
@@ -83,3 +84,11 @@ def shiftAngle(x, y, angle):
     else:
         raise Exception(f'Figure.probe: Problem with angle - angle:{angle}')
     return x1, y1
+
+def get_git_version():
+    try:
+        version = subprocess.check_output(["git", "describe", "--tags"], stderr=subprocess.DEVNULL).strip().decode("utf-8")
+    except Exception:
+        version = "unknown"
+    return version
+

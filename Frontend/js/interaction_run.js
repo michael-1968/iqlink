@@ -1,6 +1,5 @@
-import { htmlGET, htmlPOST }  from "./dataexchange.js";
+import { htmlGET, htmlPOST, fetchVersion }  from "./dataexchange.js";
 import figures from "./figures.js"; 
-import { filename } from "./dataexchange.js";
 
 function clockProgress() {
     showSetup();
@@ -25,12 +24,10 @@ function showCalculationtext() {
 
 function showSetup() {
     var data;
-//    removeImages();
     htmlGET("http://127.0.0.1:8000/calculation/progress/", "")
         .then(result => {
             if (result !== null) {
                 data = result;
-//                console.log("Data: ", data);
                 figures.showProgress(data, document);
             } else {
                 console.error("Error fetching counter");
@@ -74,6 +71,21 @@ document.getElementById('Stop').addEventListener('click', function() {
             }
         })
 });
+
+fetchVersion().then(version => {
+    document.getElementById('field-label').innerHTML = '20.12.2024, Michael Lanker, ' + version;
+}).catch(error => {
+    document.getElementById('field-label').innerHTML = '20.12.2024, Michael Lanker';
+    console.error("Error fetching version:", error);
+});
+
+
+//console.log("interaction_run.Version: ", version);
+//document.getElementById('field-label').innerHTML = '20.12.2024, Michael Lanker' + version;
+
+
+//console.log("interaction_run.Version afterwards: ", version());
+
 
 //document.getElementById('Me').style.visibility = 'hidden';
 document.getElementById('Me').innerHTML = 'Test';

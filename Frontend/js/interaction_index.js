@@ -1,6 +1,6 @@
 import figures from './figures.js';
 import Figure from './figure.js';
-import {filename, htmlGET, htmlPOST} from './dataexchange.js'
+import {filename, htmlGET, htmlPOST, fetchVersion} from './dataexchange.js'
 import localStorageHandler from './localStorageHandler.js'
 
 
@@ -212,6 +212,13 @@ function hideImages(status) {
         }
    });
 }
+
+fetchVersion().then(version => {
+    document.getElementById('field-label').innerHTML = '20.12.2024, Michael Lanker, ' + version;
+}).catch(error => {
+    document.getElementById('field-label').innerHTML = '20.12.2024, Michael Lanker';
+    console.error("Error fetching version:", error);
+});
 
 // Event-Listener für die Buttons 
 document.getElementById('Set').addEventListener('click', set);

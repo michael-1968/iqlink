@@ -8,6 +8,7 @@ from .counter import get_counter, set_counter
 from .counter import started, counter 
 from .communication import get_Setup, set_Setup, get_Progress, set_Parameter, get_Parameter, get_Calculationtext
 from .communication import startCalculation, breakCalculation, save_Setup, load_Setup, load_ButtonNames, save_ButtonNames
+from .helpers import get_git_version
 
 def show_counter(request):
     return JsonResponse({"counter": get_counter(), "started": started})
@@ -56,6 +57,9 @@ def setupLoad(request):
     print("setupLoad 1: ", filename)
     print("setupLoad 2: ", x)
     return JsonResponse(load_Setup(filename))
+
+def version(request):
+    return JsonResponse({"version": get_git_version()})
 
 @csrf_exempt
 def startOrPauseCalculation(request):
